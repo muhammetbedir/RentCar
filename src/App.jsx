@@ -1,23 +1,25 @@
-import { useState } from 'react'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from './Pages/HomePage';
-import Tabbar from './components/Tabbar';
-import SearchBar from './components/SearchBar';
+import HomePage from "./Pages/HomePage";
+import Tabbar from "./components/Tabbar";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
+import Favorite from "./Pages/Favorite";
 function App() {
-
   return (
     <div className="App">
-      <SearchBar />
-  <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/favori" element={"Favoriler"} />
-          <Route path="/signin" element={"Giriş"} />
-          <Route path="*" element={"boş"} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/favori" element={<Favorite />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/user/:name" element={"user"} />
+        <Route path="*" element={"boş"} />
       </Routes>
-    <Tabbar/>
+      <Tabbar />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
