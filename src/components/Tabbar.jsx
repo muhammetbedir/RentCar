@@ -9,7 +9,7 @@ import { height } from "@mui/system";
 import { useUser } from "../context/UserProvider";
 
 function Tabbar() {
-  const { userName, setUserName } = useUser();
+  const { userName, isLoggedin } = useUser();
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
@@ -30,7 +30,7 @@ function Tabbar() {
       ? setValue(1)
       : path === "/login" || path === "/user"
       ? setValue(2)
-      : setValue(3);
+      : setValue(2);
   }, []);
   return (
     <div>
@@ -55,7 +55,7 @@ function Tabbar() {
           <Tab
             sx={{ width: 1 / 4 }}
             icon={<PersonPinIcon />}
-            label={userName.name ? "Profil" : "Giriş Yap"}
+            label={isLoggedin ? "Profil" : "Giriş Yap"}
           />
         }
       </Tabs>

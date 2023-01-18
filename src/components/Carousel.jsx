@@ -9,11 +9,11 @@ import "swiper/css/navigation";
 
 import { Pagination, Navigation } from "swiper";
 
-function Carousel({ setId, setActive, active, movies }) {
+function Carousel({ setId, setActive, movies }) {
   return (
     <div className={"carouselPage"}>
       {movies.map((movie, key) => (
-        <div className={movie.id}>
+        <div className="swiperContainer">
           <Swiper
             slidesPerView={1}
             spaceBetween={30}
@@ -29,7 +29,7 @@ function Carousel({ setId, setActive, active, movies }) {
           >
             <SwiperSlide>
               <img
-                src="https://arabam-blog.mncdn.com/wp-content/uploads/2021/05/skoda-fabia-2021.jpg"
+                src={"https://image.tmdb.org/t/p/w500/" + movie.poster_path}
                 alt=""
               />
             </SwiperSlide>
@@ -39,7 +39,12 @@ function Carousel({ setId, setActive, active, movies }) {
                 alt=""
               />
             </SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>
+              <img
+                src="https://arabam-blog.mncdn.com/wp-content/uploads/2021/05/skoda-fabia-2021.jpg"
+                alt=""
+              />
+            </SwiperSlide>
             <SwiperSlide>Slide 4</SwiperSlide>
             <SwiperSlide>Slide 5</SwiperSlide>
             <SwiperSlide>Slide 6</SwiperSlide>
@@ -47,7 +52,7 @@ function Carousel({ setId, setActive, active, movies }) {
             <SwiperSlide>Slide 8</SwiperSlide>
             <SwiperSlide>Slide 9</SwiperSlide>
           </Swiper>
-          <h3>sdsad</h3>
+          <h3>{movie.title}</h3>
         </div>
       ))}
     </div>

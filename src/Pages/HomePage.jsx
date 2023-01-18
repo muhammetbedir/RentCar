@@ -1,36 +1,50 @@
 import React, { useRef, useState, useEffect } from "react";
 import Carousel from "../components/Carousel";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import SearchBar from "../components/SearchBar";
 import Detail from "../components/Detail";
 import axios from "axios";
 import api from "../components/api";
-
+import { Pagination } from "@mui/material";
+import CreateRent from "../components/CreateRent";
 function HomePage() {
   const [id, setId] = useState(100);
   const [active, setActive] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [page, setPage] = useState(1);
+  const [isLoad, setIsLoad] = useState(false);
 
   useEffect(() => {
     axios
       .get(
-        `${api}discover/movie?api_key=afe36372ed68305effa3c9221c86cd2e&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate`
+        `${api}discover/movie?api_key=afe36372ed68305effa3c9221c86cd2e&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`
       )
-      .then((res) => setMovies(res.data.results));
-  }, []);
+      .then((res) => setMovies(res.data.results))
+      .finally(() => setIsLoad(true));
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }, [page]);
   return (
     <div className={active ? "homePage active" : "homePage"}>
-      <div className={active ? "homeContainer active" : "homeContainer"}>
-        <SearchBar />
-        <Carousel
-          setId={setId}
-          setActive={setActive}
-          active={active}
-          movies={movies}
-        />
-      </div>
-      {active && <Detail active={active} id={id} setActive={setActive} />}
+      {isLoad ? (
+        <>
+          <div className={active ? "homeContainer active" : "homeContainer"}>
+            <SearchBar />
+            <CreateRent />
+            <Carousel setId={setId} setActive={setActive} movies={movies} />
+            <Pagination
+              count={50}
+              color="primary"
+              onChange={(event, value) => setPage(value)}
+            />
+          </div>
+          {active && <Detail active={active} id={id} setActive={setActive} />}
+        </>
+      ) : (
+        <div className="loading">Loading...</div>
+      )}
     </div>
   );
 }

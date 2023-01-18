@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
 function Login() {
   const navigate = useNavigate();
-  const { userName, setUserName } = useUser();
+  const { userName, setUserName, setIsLoggedin, isLoggedin } = useUser();
   const [user, setUser] = useState({ userName: "", password: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const database = [
@@ -18,6 +18,10 @@ function Login() {
       password: "1234",
     },
   ];
+  useEffect(() => {
+    isLoggedin && navigate(`/user/${userName}`);
+    console.log(userName);
+  }, []);
   const findUser = (e) => {
     e.preventDefault();
     const logedUser = database.find((x) => x.userName === user.userName);
@@ -29,6 +33,12 @@ function Login() {
       if (user.password === logedUser.password) {
         navigate(`/user/${logedUser.userName}`);
         setUserName({ name: user.userName, id: user.id });
+        localStorage.setItem(
+          "user",
+          JSON.stringify({ name: user.userName, id: user.id })
+        );
+        setIsLoggedin(true);
+        localStorage.setItem("logged", JSON.stringify(true));
       }
     } else if (user.userName === "" || user.password === "") {
       setErrorMessage("Lütfen tüm bilgilerinizi giriniz.");
@@ -57,8 +67,8 @@ function Login() {
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           required
         />
-        <NavLink to={"/forgotpasswort"}>Parolanızı mı unuttunuz?</NavLink>
-        {errorMessage}
+        <NavLink to={"/forgotpassword"}>Parolanızı mı unuttunuz?</NavLink>
+        {errorMessage && <h3 className="errorMessage"> *{errorMessage}</h3>}
         <button onClick={findUser}>Giriş Yap</button>
         <NavLink className="signUpBtn" to={"/signup"}>
           Kayıt Ol
