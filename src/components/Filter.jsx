@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import Popup from "reactjs-popup";
-import "reactjs-popup/dist/index.css";
-import AddBoxIcon from "@mui/icons-material/AddBox";
-
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import Popup from "reactjs-popup";
+import "reactjs-popup/dist/index.css";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 import {
   Button,
@@ -16,10 +15,10 @@ import {
   Select,
 } from "@mui/material";
 
-function CreateRent() {
+function Filter() {
   const [category, setCategory] = useState("");
   return (
-    <div className="addContainer">
+    <>
       <Popup
         contentStyle={{
           display: "flex",
@@ -30,10 +29,16 @@ function CreateRent() {
           borderRadius: "1rem",
         }}
         trigger={
-          <div className="btnContainer">
-            <button className="addBtn">
-              <AddBoxIcon />
-            </button>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <FilterListIcon />
           </div>
         }
         modal
@@ -55,7 +60,7 @@ function CreateRent() {
                   </InputLabel>
 
                   <Select
-                    labelId="demo-simple-select-standard-label"
+                    labelId="demo-simple-select-helper-label"
                     id="demo-simple-select-standard"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
@@ -72,7 +77,6 @@ function CreateRent() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   id="marka"
                   name="marka"
                   label="Araç Markası"
@@ -83,7 +87,6 @@ function CreateRent() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   id="model"
                   name="model"
                   label="Araç Modeli"
@@ -94,12 +97,11 @@ function CreateRent() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   id="rengi"
                   name="rengi"
                   label="Araç Rengi"
                   fullWidth
-                  autoComplete="color"
+                  autoComplete="family-name"
                   variant="standard"
                 />
               </Grid>
@@ -130,20 +132,26 @@ function CreateRent() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
-                  required
-                  id="address1"
-                  name="address1"
-                  label="Adres"
+                  id="state"
+                  name="state"
+                  label="Maksimum Fiyat"
                   fullWidth
-                  autoComplete="shipping address-line1"
                   variant="standard"
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
+                  id="state"
+                  name="state"
+                  label="Minimum Fiyat"
+                  fullWidth
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
                   id="state"
                   name="state"
                   label="İlçe"
@@ -153,7 +161,6 @@ function CreateRent() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   id="city"
                   name="city"
                   label="Şehir"
@@ -164,23 +171,11 @@ function CreateRent() {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   id="country"
                   name="country"
                   label="Ülke"
                   fullWidth
                   autoComplete="shipping country"
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="zip"
-                  name="zip"
-                  label="Posta Kodu"
-                  fullWidth
-                  autoComplete="shipping postal-code"
                   variant="standard"
                 />
               </Grid>
@@ -190,15 +185,15 @@ function CreateRent() {
                   sx={{ width: "100%", mt: 2 }}
                   variant="contained"
                 >
-                  Ekle
+                  Filtrele
                 </Button>
               </Grid>
             </Grid>
           </React.Fragment>
         )}
       </Popup>
-    </div>
+    </>
   );
 }
 
-export default CreateRent;
+export default Filter;

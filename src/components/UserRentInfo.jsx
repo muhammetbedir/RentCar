@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Carousel from "./Carousel";
-import Detail from "./Detail";
+import Detail from "../components/Details/Detail";
 import axios from "axios";
 import api from "./api";
 

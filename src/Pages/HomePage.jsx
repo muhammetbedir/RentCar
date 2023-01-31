@@ -1,17 +1,19 @@
 import React, { useRef, useState, useEffect } from "react";
 import Carousel from "../components/Carousel";
 import SearchBar from "../components/SearchBar";
-import Detail from "../components/Detail";
+import Detail from "../components/Details/Detail";
 import axios from "axios";
 import api from "../components/api";
 import { Pagination } from "@mui/material";
 import CreateRent from "../components/CreateRent";
+import CategoryBtnGroup from "../components/CategoryBtnGroup";
 function HomePage() {
   const [id, setId] = useState(100);
   const [active, setActive] = useState(false);
   const [movies, setMovies] = useState([]);
   const [page, setPage] = useState(1);
   const [isLoad, setIsLoad] = useState(false);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     axios
@@ -31,8 +33,17 @@ function HomePage() {
       {isLoad ? (
         <>
           <div className={active ? "homeContainer active" : "homeContainer"}>
-            <SearchBar />
-            <CreateRent />
+            <div className="headerContainer">
+              <SearchBar />
+              <div className="headerBtnContainer">
+                <CategoryBtnGroup
+                  setMovies={setMovies}
+                  setCategory={setCategory}
+                  category={category}
+                />
+                <CreateRent />
+              </div>
+            </div>
             <Carousel setId={setId} setActive={setActive} movies={movies} />
             <Pagination
               count={50}
