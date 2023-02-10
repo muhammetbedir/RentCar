@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 // Import Swiper styles
 import "swiper/css";
@@ -8,8 +9,11 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 
 import { Pagination, Navigation } from "swiper";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserProvider";
 
 function Carousel({ setId, setActive, movies }) {
+  const [color, setColor] = useState({});
   return (
     <div className={"carouselPage"}>
       {movies.map((movie, key) => (
@@ -53,10 +57,23 @@ function Carousel({ setId, setActive, movies }) {
             <SwiperSlide>Slide 9</SwiperSlide>
           </Swiper>
           <h3>{movie.title}</h3>
+          <LikeBtn />
         </div>
       ))}
     </div>
   );
 }
-
+const LikeBtn = () => {
+  const navigate = useNavigate();
+  const { isLoggedin } = useUser();
+  const [like, setLike] = useState(false);
+  const changeLike = () => {
+    isLoggedin ? (like ? setLike(false) : setLike(true)) : navigate("/login");
+  };
+  return (
+    <div className="likeBtn" onClick={changeLike}>
+      <FavoriteIcon color={like ? "warning" : "action"} />
+    </div>
+  );
+};
 export default Carousel;

@@ -7,7 +7,19 @@ body {
   position: relative;
   height: 100%;
 }
+*::-webkit-scrollbar {
+  width: 16px;
+}
 
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #b7b7b7;
+  border-radius: 10px;
+  border: 3px solid #ffffff;
+}
 body {
   background: #fff;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -17,7 +29,6 @@ body {
   padding: 0;
   min-height: 100vh;
   width: 100%;
-  background: #e5e5e5;
   font: 13px/1.4 Geneva, "Lucida Sans", "Lucida Grande", "Lucida Sans Unicode",
     Verdana, Sans-Serif;
 }
@@ -28,6 +39,7 @@ body {
 .headerContainer {
   width: 80%;
   display: flex;
+  justify-content: space-between;
 }
 .MuiInputBase-root {
   width: 100% !important;
@@ -71,13 +83,13 @@ body {
   align-items: center;
   justify-content: center;
   margin-bottom: 100px;
-  transition: all 0.4s ease-out;
+  transition: all 0.2s ease;
 }
 .homeContainer.active,
 .userRentContainer.active,
 .favoritePage.active {
   width: 60% !important;
-  transition: all 0.4s ease-in;
+  transition: all 0.2s ease;
 }
 
 .swiper {
@@ -90,6 +102,7 @@ body {
   padding: 20px;
   cursor: pointer;
   background-color: #fff;
+  position: relative;
 }
 .carouselPage {
   margin-bottom: 50px;
@@ -147,7 +160,45 @@ body {
   fill: black !important;
   stroke: black !important;
 }
+.likeBtn {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 10;
+}
 
+/* ********************* Tabbar ********************** */
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: 80px;
+  gap: 80px;
+  z-index: 999;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+}
+.tabbar a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  padding-bottom: 10px;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+  width: 15%;
+}
+.tabbar a svg {
+  font-size: 30px;
+}
+.tabbar a.active {
+  border-bottom: 2px solid #007aff;
+  color: #007aff;
+}
 /********************* details ***************** */
 .detailPages {
   position: absolute;
@@ -163,6 +214,13 @@ body {
   background-color: #007bffa2;
   border: none;
   color: #fff;
+}
+.detailInfoBtn {
+  background-color: #007aff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 12px;
 }
 .detailPages button:nth-child(1) {
   border-bottom: #000 1px solid;
@@ -191,8 +249,9 @@ body {
   right: 0;
   top: 0px;
   padding-top: 20px;
-  border-left: #000 solid 1px;
-  animation: slideToLeft 1s forwards;
+  border-left: rgba(0, 0, 0, 0.5) solid 2px;
+  box-shadow: 1px 1px 50px rgba(0, 0, 0, 0.3);
+  animation: slideToLeft 0.5s forwards;
   z-index: 10;
 }
 
@@ -202,12 +261,13 @@ body {
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+  min-height: 80vh;
 }
 
 .details .mainDetailImg {
-  margin-top: 20px;
+  margin-top: 40px;
   width: 100%;
-  height: 250px;
+  height: 300px;
   object-fit: cover;
   border-radius: 20px;
   border: #007aff 2px solid;
@@ -215,8 +275,11 @@ body {
 }
 .detailPageContent,
 .detailPageTitle {
-  width: 80%;
+  width: 100%;
   align-self: center;
+}
+.detailPageContent {
+  margin-bottom: 100px;
 }
 .locationImg {
   width: 80% !important;
@@ -267,12 +330,12 @@ body {
   border: none;
   cursor: pointer;
   margin: 10px 0 0px 0;
-  transition: all 0.5s ease-in-out;
-  width: 50%;
+  transition: all 0.4s ease-in-out;
+  width: 80%;
 }
 .detailComponentBtn:hover {
   background-color: #0367d3;
-  transition: all 0.4s ease-in;
+  transition: all 0.3s ease-in;
 }
 @keyframes slideToLeft {
   from {
@@ -327,11 +390,27 @@ body {
   justify-content: flex-start;
   text-align: start;
   gap: 20px;
+  position: relative;
+  width: 100%;
+  margin-top: 60px;
+}
+.rentDate:nth-child(2) {
+  padding-bottom: 30px;
+  border-bottom: 1px solid #000;
+}
+.rentDate div div input {
+  height: 40px;
 }
 .rentDate h3 {
-  width: 50%;
+  width: 100%;
+  position: absolute;
+  top: -30px;
+  font-size: 12px;
+  opacity: 0.8;
 }
-
+.rentDate .react-datepicker-wrapper input {
+  width: 100%;
+}
 /* Custom Styles */
 
 Label {
@@ -566,6 +645,11 @@ Input {
   top: 50px;
   right: 15%;
 }
+@media screen and (max-width: 700px) {
+  .profileDropdownContainer {
+    left: 15%;
+  }
+}
 .profileDropdown {
   position: absolute;
   width: 120px;
@@ -591,19 +675,22 @@ Input {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   text-align: center;
   flex-direction: column;
 }
+
 /* ******************** Category Button Group ***************** */
 .headerBtnContainer {
   display: flex;
   width: 100%;
+  justify-content: end;
 }
 .categoryBtnGroup {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   margin-top: 20px;
-  width: 75%;
+  width: 45%;
   justify-content: center;
   align-items: center;
 }
@@ -613,15 +700,15 @@ Input {
   border-radius: 5px;
   border: none;
   cursor: pointer;
-  background-color: Rgba(255, 255, 255, 0.15);
-  box-shadow: Inset 0 3px 6px Rgba(0, 0, 0, 0.1);
+  background-color: transparent;
 }
 .btn:hover {
   background-color: #c4c4c4;
 }
-.categoryBtnGroup button > * {
-  width: 100%;
+.btn svg {
+  font-size: 30px;
 }
+
 /* ******************* Create Rent ********************** */
 .addContainer {
   display: flex;
@@ -633,7 +720,7 @@ Input {
 }
 .addContainer .btnContainer {
   display: flex;
-  width: 60%;
+  width: 30%;
   height: 100%;
   justify-content: center;
   align-items: center;
@@ -641,8 +728,8 @@ Input {
 .addBtn {
   width: 100%;
   height: 100%;
-  background-color: Rgba(255, 255, 255, 0.15);
-  box-shadow: Inset 0 3px 6px Rgba(0, 0, 0, 0.1);
+  /* background-color: Rgba(255, 255, 255, 0.15);
+  box-shadow: Inset 0 3px 6px Rgba(0, 0, 0, 0.1); */
   border-radius: 5px;
   display: flex;
   justify-content: center;
@@ -653,4 +740,55 @@ Input {
 }
 .addBtn:hover {
   background-color: #c4c4c4;
+}
+.createRentDateContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+  margin: 45px auto 0;
+  position: relative;
+}
+.createRentDateContainer h4 {
+  position: absolute;
+  top: -45px;
+  left: 0px;
+  opacity: 0.5;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.createRentDate {
+  height: 40px;
+  width: 100%;
+}
+
+/***************** not found page *************/
+.notFoundPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+}
+.notFoundImage {
+  margin-right: 100px;
+  width: 50%;
+}
+.notFoundInfo {
+  letter-spacing: 2px;
+  font-size: 2rem;
+  font-weight: 400;
+}
+.notFoundBtn {
+  font-size: 20px;
+}
+@media screen and (max-width: 777px) {
+  .notFoundImage {
+    width: 70%;
+  }
+  .notFoundPage {
+    flex-direction: column;
+    margin-right: 0;
+  }
 }

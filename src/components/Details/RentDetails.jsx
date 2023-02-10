@@ -50,7 +50,7 @@ function RentDetails({ setPage, page }) {
       {cardInfo.cvv && cardInfo.date && cardInfo.name && cardInfo.number && (
         <button
           className="detailComponentBtn"
-          style={{ width: "100%" }}
+          // style={{ width: "100%" }}
           onClick={() => setPage(page + 1)}
         >
           Kirala

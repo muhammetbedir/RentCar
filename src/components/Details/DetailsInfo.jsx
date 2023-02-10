@@ -41,16 +41,14 @@ function DetailsInfo({ car }) {
           flexWrap: "wrap",
         }}
       >
-        <h3>Kategori:Araba</h3>
-        <h3>Marka:Ford</h3>
-        <h3>Model: Focus</h3>
-        <h3>Kapasite:5</h3>
-        <h3>Renk: Mavi</h3>
-        <h3>Günlük Fiyat: 500 TL</h3>
+        <h3 className="detailInfoBtn">Kategori:Araba</h3>
+        <h3 className="detailInfoBtn">Model: Focus</h3>
+        <h3 className="detailInfoBtn">Araç Kapasitesi:5</h3>
+        <h3 className="detailInfoBtn">Günlük Fiyat: 500 TL</h3>
       </div>
 
       <p className="detailPageContent">{car.overview}</p>
-      <div className="bookingInfo">
+      {/* <div className="bookingInfo">
         <div>
           <img
             src="https://www.freeiconspng.com/thumbs/car-png/red-sports-car-png-1.png"
@@ -75,7 +73,7 @@ function DetailsInfo({ car }) {
           />
           <p>Aracı Kiralayın</p>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

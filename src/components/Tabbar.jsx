@@ -7,58 +7,33 @@ import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { useNavigate } from "react-router-dom";
 import { height } from "@mui/system";
 import { useUser } from "../context/UserProvider";
-
+import { NavLink } from "react-router-dom";
 function Tabbar() {
   const { userName, isLoggedin } = useUser();
   const navigate = useNavigate();
   const [value, setValue] = useState(0);
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-    newValue === 0
-      ? navigate("/")
-      : newValue === 1
-      ? navigate("/favori")
-      : userName.name
-      ? navigate(`/user/${userName.name}`)
-      : navigate("/login");
-  };
-  useEffect(() => {
-    const path = window.location.pathname;
-    path === "/"
-      ? setValue(0)
-      : path === "/favori"
-      ? setValue(1)
-      : path === "/login" || path === "/user"
-      ? setValue(2)
-      : setValue(2);
-  }, []);
+
   return (
-    <div>
-      <Tabs
-        sx={{
-          width: "100%",
-          position: "fixed",
-          bottom: 0,
-          left: 0,
-          zIndex: 999,
-          backgroundColor: "#fff",
-          boxShadow: 2,
-        }}
-        centered
-        value={value}
-        onChange={handleChange}
-        aria-label="icon label tabs example"
-      >
-        <Tab sx={{ width: 1 / 4 }} icon={<Home />} label="Anasayfa" />
-        <Tab sx={{ width: 1 / 4 }} icon={<FavoriteIcon />} label="Favoriler" />
-        {
-          <Tab
-            sx={{ width: 1 / 4 }}
-            icon={<PersonPinIcon />}
-            label={isLoggedin ? "Profil" : "Giriş Yap"}
-          />
-        }
-      </Tabs>
+    <div className="tabbar">
+      <NavLink to="/">
+        <Home />
+        Anasayfa
+      </NavLink>
+      <NavLink to="/favori">
+        <FavoriteIcon />
+        Favoriler
+      </NavLink>
+      {isLoggedin ? (
+        <NavLink to={`/user/${userName.name}`}>
+          <PersonPinIcon />
+          Profil
+        </NavLink>
+      ) : (
+        <NavLink to="/login">
+          <PersonPinIcon />
+          Giriş Yap
+        </NavLink>
+      )}
     </div>
   );
 }

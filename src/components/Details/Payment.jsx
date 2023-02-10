@@ -8,11 +8,11 @@ import Checkbox from "@mui/material/Checkbox";
 export default function Payment({ setCardInfo, cardInfo }) {
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom mt={10}>
+      <Typography variant="h6" gutterBottom mt={5}>
         Ödeme Türü
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <TextField
             required
             id="cardName"
@@ -24,7 +24,7 @@ export default function Payment({ setCardInfo, cardInfo }) {
             onChange={(e) => setCardInfo({ ...cardInfo, name: e.target.value })}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <TextField
             required
             id="cardNumber"
@@ -38,7 +38,7 @@ export default function Payment({ setCardInfo, cardInfo }) {
             }
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <TextField
             required
             id="expDate"
@@ -50,7 +50,7 @@ export default function Payment({ setCardInfo, cardInfo }) {
             onChange={(e) => setCardInfo({ ...cardInfo, date: e.target.value })}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={12}>
           <TextField
             required
             id="cvv"

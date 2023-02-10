@@ -6,7 +6,8 @@ import AddBoxIcon from "@mui/icons-material/AddBox";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import {
   Button,
   Fab,
@@ -15,23 +16,38 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-
+import { useUser } from "../context/UserProvider";
+import { useNavigate } from "react-router-dom";
 function CreateRent() {
+  const { isLoggedin } = useUser();
+  const navigate = useNavigate();
   const [category, setCategory] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+  const onChange = (dates) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+  };
+  const redirectToSignIn = () => {
+    !isLoggedin && navigate("login");
+  };
   return (
     <div className="addContainer">
       <Popup
         contentStyle={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          // justifyContent: "center",
           alignItems: "center",
           padding: "40px 30px",
           borderRadius: "1rem",
+          height: "80vh",
+          overflow: "auto",
         }}
         trigger={
           <div className="btnContainer">
-            <button className="addBtn">
+            <button className="addBtn" onClick={redirectToSignIn}>
               <AddBoxIcon />
             </button>
           </div>
@@ -41,11 +57,11 @@ function CreateRent() {
       >
         {(close) => (
           <React.Fragment>
-            <Typography variant="h6" gutterBottom>
-              Aracınızı Kiralayın
-            </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Typography variant="h6" gutterBottom>
+                İlan Oluşturun
+              </Typography>
+              <Grid item xs={12} sm={12}>
                 <FormControl
                   variant="standard"
                   sx={{ mt: 2.15, minWidth: "100%" }}
@@ -70,18 +86,7 @@ function CreateRent() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="marka"
-                  name="marka"
-                  label="Araç Markası"
-                  fullWidth
-                  autoComplete="Marka"
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   required
                   id="model"
@@ -92,18 +97,7 @@ function CreateRent() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="rengi"
-                  name="rengi"
-                  label="Araç Rengi"
-                  fullWidth
-                  autoComplete="color"
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <FormControl
                   variant="standard"
                   sx={{ mt: 2.15, minWidth: "100%" }}
@@ -115,43 +109,96 @@ function CreateRent() {
                   <Select
                     labelId="demo-simple-select-standard-label"
                     id="demo-simple-select-standard"
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
+                    // value={category}
+                    // onChange={(e) => setCategory(e.target.value)}
                     label=" Araç Kapasitesi"
                   >
                     <MenuItem value="">
                       <em>Hiçbiri</em>
                     </MenuItem>
-                    <MenuItem value={"1"}>1</MenuItem>
-                    <MenuItem value={"2"}>2</MenuItem>
-                    <MenuItem value={"3"}>3</MenuItem>
-                    <MenuItem value={"4"}>4</MenuItem>
-                    <MenuItem value={"5"}>5</MenuItem>
+                    {category === "Araba" && (
+                      <>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                        <MenuItem value={"3"}>3</MenuItem>
+                        <MenuItem value={"4"}>4</MenuItem>
+                        <MenuItem value={"5"}>5</MenuItem>
+                      </>
+                    )}
+                    {category === "Bisiklet" && (
+                      <>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                      </>
+                    )}
+                    {category === "Motorsiklet" && (
+                      <>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                        <MenuItem value={"3"}>3</MenuItem>
+                      </>
+                    )}
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   required
-                  id="address1"
-                  name="address1"
-                  label="Adres"
+                  id="fiyat"
+                  name="fiyat"
+                  label="Günlük Fiyat"
                   fullWidth
-                  autoComplete="shipping address-line1"
+                  autoComplete=""
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   required
-                  id="state"
-                  name="state"
-                  label="İlçe"
+                  id="resim"
+                  name="resim"
+                  label="Resim1"
                   fullWidth
+                  autoComplete=""
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  required
+                  id="resim"
+                  name="resim"
+                  label="Resim2"
+                  fullWidth
+                  autoComplete=""
+                  variant="standard"
+                />
+              </Grid>
+              <Grid item xs={12} sm={12}>
+                <TextField
+                  required
+                  id="resim"
+                  name="resim"
+                  label="Resim3"
+                  fullWidth
+                  autoComplete=""
+                  variant="standard"
+                />
+              </Grid>
+              <div className="createRentDateContainer">
+                <h4>Tarih Seçiniz:</h4>
+                <DatePicker
+                  className="createRentDate"
+                  selected={startDate}
+                  onChange={onChange}
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={new Date()}
+                  selectsRange
+                  // inline
+                />
+              </div>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   required
                   id="city"
@@ -162,28 +209,17 @@ function CreateRent() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   required
-                  id="country"
-                  name="country"
-                  label="Ülke"
+                  id="state"
+                  name="state"
+                  label="İlçe"
                   fullWidth
-                  autoComplete="shipping country"
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  id="zip"
-                  name="zip"
-                  label="Posta Kodu"
-                  fullWidth
-                  autoComplete="shipping postal-code"
-                  variant="standard"
-                />
-              </Grid>
+
               <Grid item sm={12} xs={12}>
                 <Button
                   type="submit"

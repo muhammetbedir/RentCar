@@ -4,8 +4,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Popup from "reactjs-popup";
 import "reactjs-popup/dist/index.css";
-import FilterListIcon from "@mui/icons-material/FilterList";
-
+import TuneIcon from "@mui/icons-material/Tune";
 import {
   Button,
   Fab,
@@ -23,10 +22,12 @@ function Filter() {
         contentStyle={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          // justifyContent: "center",
           alignItems: "center",
           padding: "40px 30px",
           borderRadius: "1rem",
+          height: "80vh",
+          overflow: "auto",
         }}
         trigger={
           <div
@@ -38,7 +39,7 @@ function Filter() {
               alignItems: "center",
             }}
           >
-            <FilterListIcon />
+            <TuneIcon />
           </div>
         }
         modal
@@ -50,7 +51,7 @@ function Filter() {
               Aracınızı Kiralayın
             </Typography>
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <FormControl
                   variant="standard"
                   sx={{ mt: 2.15, minWidth: "100%" }}
@@ -75,17 +76,7 @@ function Filter() {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="marka"
-                  name="marka"
-                  label="Araç Markası"
-                  fullWidth
-                  autoComplete="Marka"
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   id="model"
                   name="model"
@@ -95,17 +86,7 @@ function Filter() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="rengi"
-                  name="rengi"
-                  label="Araç Rengi"
-                  fullWidth
-                  autoComplete="family-name"
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <FormControl
                   variant="standard"
                   sx={{ mt: 2.15, minWidth: "100%" }}
@@ -124,15 +105,32 @@ function Filter() {
                     <MenuItem value="">
                       <em>Hiçbiri</em>
                     </MenuItem>
-                    <MenuItem value={"1"}>1</MenuItem>
-                    <MenuItem value={"2"}>2</MenuItem>
-                    <MenuItem value={"3"}>3</MenuItem>
-                    <MenuItem value={"4"}>4</MenuItem>
-                    <MenuItem value={"5"}>5</MenuItem>
+                    {category === "Araba" && (
+                      <>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                        <MenuItem value={"3"}>3</MenuItem>
+                        <MenuItem value={"4"}>4</MenuItem>
+                        <MenuItem value={"5"}>5</MenuItem>
+                      </>
+                    )}
+                    {category === "Bisiklet" && (
+                      <>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                      </>
+                    )}
+                    {category === "Motorsiklet" && (
+                      <>
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                        <MenuItem value={"3"}>3</MenuItem>
+                      </>
+                    )}
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   id="state"
                   name="state"
@@ -141,7 +139,7 @@ function Filter() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   id="state"
                   name="state"
@@ -150,7 +148,7 @@ function Filter() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   id="state"
                   name="state"
@@ -159,23 +157,13 @@ function Filter() {
                   variant="standard"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={12}>
                 <TextField
                   id="city"
                   name="city"
                   label="Şehir"
                   fullWidth
                   autoComplete="shipping address-level2"
-                  variant="standard"
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  id="country"
-                  name="country"
-                  label="Ülke"
-                  fullWidth
-                  autoComplete="shipping country"
                   variant="standard"
                 />
               </Grid>

@@ -4,8 +4,11 @@ import api from "../api";
 import DetailsInfo from "./DetailsInfo";
 import CloseIcon from "@mui/icons-material/Close";
 import RentDetails from "./RentDetails";
-
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../../context/UserProvider";
 function Detail({ active, id, setActive }) {
+  const navigate = useNavigate();
+  const { isLoggedin } = useUser();
   const [car, setCar] = useState({});
   const [page, setPage] = useState(1);
   useEffect(() => {
@@ -17,21 +20,26 @@ function Detail({ active, id, setActive }) {
     setActive(true);
     console.log(car);
   }, [id]);
+  const changePage = () => {
+    isLoggedin ? setPage(page + 1) : navigate("login");
+  };
   return (
     <div className={active ? "detailContainer active" : "detailContainer"}>
       <div className="details">
         <CloseIcon
-          style={{ cursor: "pointer" }}
+          style={{
+            cursor: "pointer",
+            backgroundColor: "#000",
+            color: "#fff",
+            borderRadius: "50%",
+          }}
           onClick={() => setActive(false)}
         ></CloseIcon>
         {page === 1 && <DetailsInfo car={car} />}
         {page === 2 && <RentDetails setPage={setPage} page={page} />}
         <div className="detailBtnGroup">
           {page > 0 && page < 2 && (
-            <button
-              className="detailComponentBtn"
-              onClick={() => setPage(page + 1)}
-            >
+            <button className="detailComponentBtn" onClick={changePage}>
               Kirala
             </button>
           )}
@@ -45,11 +53,6 @@ function Detail({ active, id, setActive }) {
           )}
         </div>
       </div>
-      {/* <div className="detailPages">
-        <button>a</button>
-        <button>a</button>
-        <button>a</button>
-      </div> */}
     </div>
   );
 }

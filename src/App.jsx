@@ -8,6 +8,7 @@ import SignUp from "./Pages/SignUp";
 import Favorite from "./Pages/Favorite";
 import Profile from "./Pages/Profile";
 import ForgotPassword from "./Pages/ForgotPassword";
+import NotFound from "./Pages/NotFound";
 function App() {
   return (
     <div className="App">
@@ -18,7 +19,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
         <Route path="/user/:name" element={<Profile />} />
-        <Route path="*" element={"boş"} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Tabbar />
     </div>

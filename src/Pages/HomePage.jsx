@@ -35,6 +35,7 @@ function HomePage() {
           <div className={active ? "homeContainer active" : "homeContainer"}>
             <div className="headerContainer">
               <SearchBar />
+
               <div className="headerBtnContainer">
                 <CategoryBtnGroup
                   setMovies={setMovies}

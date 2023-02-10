@@ -1,47 +1,40 @@
-import React from 'react'
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+import React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 
 import { useUser } from "../context/UserProvider";
 function UpdateUserPhoto() {
   return (
     <div>
-    <Box
-    component="form"
-    sx={{
-      '& .MuiTextField-root': { m: 5, width: '25ch', borderRadius: 5},
-    }}
-    noValidate
-    autoComplete="off"
-  >
-    <div>
-      <TextField
-        required
-        id="standard-required"
-        label="Ad"
-        defaultValue=""
-        variant="standard"
-      />
-      <TextField
-        id="standard-password-input"
-        label="Password"
-        type="password"
-        autoComplete="current-password"
-        variant="standard"
-      />
-      <TextField
-        id="standard-number"
-        label="Number"
-        type="number"
-        InputLabelProps={{
-          shrink: true,
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 5, width: "25ch", borderRadius: 5 },
         }}
-        variant="standard"
-      />
+        noValidate
+        autoComplete="off"
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            textAlign: "center",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+          }}
+        >
+          <TextField
+            required
+            id="standard-required"
+            label="Foto Path"
+            defaultValue=""
+            variant="standard"
+          />
+        </div>
+      </Box>
     </div>
-  </Box>
-    </div>
-  )
+  );
 }
 
-export default UpdateUserPhoto
+export default UpdateUserPhoto;
